@@ -17,7 +17,7 @@ class Hangman
       if @word.include? letter
         add_letter(letter)
       else
-        subtract_point
+        subtract_point(letter)
       end
     end
   end
@@ -45,11 +45,11 @@ class Hangman
   def game_status
     if @guess_limit === 0
       message = "You lost! Here is the correct answer: #{@word.join('')}"
-    elsif /[^_]*/ === @hidden_word
-      message = @hidden_word #"You Won!!! Congratulations on guessing #{@word.join('')}"
+    elsif !@hidden_word.include? "_"
+      message = "You Won!!! Congratulations on guessing #{@word.join('')}"
     else
-      message = "You have #{guess_limit} guess/es left. " +
-      "Here is what you have so far: #{hidden_word}"
+      message = "You have #{@guess_limit} guess/es left. " +
+      "Here is what you have so far: #{@hidden_word}"
     end
     return message, @guessed_words
   end
